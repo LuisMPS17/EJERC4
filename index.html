@@ -3,90 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA movimiento hacia objeto</title>
-    <style>
-
-        canvas {
-            background: #f9f8fa;
-            display: block;
-            margin: 0 auto;
-            border: 2px solid #333;
-        }
-
-    </style>
-
+    <title>Salto con Gravedad - Videojuego</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <canvas id = "gameCanvas" width="600" height="400"></canvas>
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-
-        const enemigo = {
-            x: 50,
-            y: 50,
-            radius: 15,
-            color: '#e74c3c',
-            velocidad: 1.5
-        };
-
-        const objetivo = {
-            x: 500,
-            y: 300,
-            radius: 10,
-            color: '#2ecc71'
-        };
-
-        // Hacer que el objetivo siga el cursor del mouse
-        canvas.addEventListener('mousemove', (e) => {
-            objetivo.x = e.offsetX;
-            objetivo.y = e.offsetY;
-        });
-        
-
-        function moverIA(entidad, destino){
-            const dx = destino.x - entidad.x;
-            const dy = destino.y - entidad.y;
-            const distancia = Math.hypot(dx, dy);
-
-            if (distancia > 1){
-                entidad.x += (dx / distancia) * entidad.velocidad;
-                entidad.y += (dy / distancia) * entidad.velocidad;
-            }
-        }
-        function dibujarCirculo(objeto){
-
-            ctx.beginPath();
-            ctx.arc(objeto.x, objeto.y, objeto.radius, 0, Math.PI * 2);
-            ctx.fillStyle = objeto.color;
-            ctx.fill();
-            ctx.closePath();
-        }
-
-        function actualizar() {
-            moverIA(enemigo, objetivo);
-        }
-
-        function dibujar(){
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            dibujarCirculo(objetivo);
-
-            dibujarCirculo(enemigo);
-
-        }
-
-
-        function loop(){
-            actualizar();
-            dibujar();
-            requestAnimationFrame(loop);
-        }
-
-        loop();
-
-
-
-    </script>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="800" height="500"></canvas>
+        <div id="ui">
+            <button id="restartBtn">Volver a empezar</button>
+        </div>
+        <div id="controls-info">
+            <p>Controles: ← → ↑ ↓ o A D W S</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
 </body>
 </html>
